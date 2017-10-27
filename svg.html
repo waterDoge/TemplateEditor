@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    path{
+        transition: transform 2s;
+        fill: black;
+        stroke: black;
+    }
+    svg path.act{
+        transition: transform 2s cubic-bezier(0, 1.03, 0.82, 0.79);
+        transform: rotate(0);
+        /*transform: rotate(60deg);*/
+        /*animation: rotate 8s cubic-bezier(0.26, 0.93, 0.27, 0.93) infinite;*/
+    }
+    svg.open path.act{
+        transform: rotate(60deg);
+    }
+    /*svg path.act:nth-last-of-type(odd),svg.open path.act:nth-last-of-type(even){*/
+        /*!*transform: rotate(60deg);*!*/
+        /*!*animation: rotate 8s cubic-bezier(0.26, 0.93, 0.27, 0.93) infinite;*!*/
+    /*}*/
+    /*svg.open path.act:nth-last-of-type(odd),svg path.act:nth-last-of-type(even){*/
+        /*transform: rotate(60deg);*/
+        /*!*transform: rotate(60deg);*!*/
+        /*!*animation: rotate 8s cubic-bezier(0.26, 0.93, 0.27, 0.93) infinite;*!*/
+    /*}*/
+    @keyframes rotate {
+        56% {
+            transform: rotate(60deg);
+        }
+        to {
+            transform: rotate(0deg);
+        }
+    }
+</style>
+<body style="overflow: hidden; background: #000">
+<svg xmlns="http://www.w3.org/2000/svg" style="bottom: 0;position: absolute" version="1.1" width="25vw"
+     viewBox="0 0 400 400">
+    <path d="M0 400 q150 -50 400 0" stroke="#333" stroke-width=".1" fill="#cfc"></path>
+    <circle cx="200" cy="200" r="100" stroke="#000" stroke-width=".3" fill="white"></circle>
+    <path class="act" d="M200 200 A100 100 0 0 1 300 200 A100 100 0 0 1 250 286.6 A100 100 0 0 0 200 200" style="transform-origin: bottom"></path>
+    <path class="act" d="M200 200 A100 100 0 0 1 250 286.6 A100 100 0 0 1 150 286.6 A100 100 0 0 0 200 200" style="transform-origin: left 75%;"></path>
+    <path class="act" d="M200 200 A100 100 0 0 1 150 286.6 A100 100 0 0 1 100 200 A100 100 0 0 0 200 200" style="transform-origin: left top;"></path>
+    <path class="act" d="M200 200 A100 100 0 0 1 100 200 A100 100 0 0 1 150 113.4 A100 100 0 0 0 200 200" style="transform-origin: top"></path>
+    <path class="act" d="M200 200 A100 100 0 0 1 150 113.4 A100 100 0 0 1 250 113.4 A100 100 0 0 0 200 200" style="transform-origin: right 25%;"></path>
+    <path class="act" d="M200 200 A100 100 0 0 1 250 113.4 A100 100 0 0 1 300 200 A100 100 0 0 0 200 200" style="transform-origin: right bottom;"></path>
+    <!--<path d="M250 63.4 C250 63.4 300 150 250 236.6 "></path>-->
+    <!--<path d="M200 150 C200 150 250 136.6 300 150" style="transform: rotate(60deg);transform-origin:left bottom;"></path>-->
+    <!--<path d="M200 150 C200 150 250 136.6 300 150" style="transform: rotate(120deg);transform-origin:left bottom;"></path>-->
+    <!--<path d="M200 150 C200 150 250 136.6 300 150" style="transform: rotate(180deg);transform-origin:left bottom;"></path>-->
+    <!--<path d="M200 150 C200 150 250 136.6 300 150" style="transform: rotate(240deg);transform-origin:left bottom;"></path>-->
+    <!--<path d="M200 150 C200 150 250 136.6 300 150" style="transform: rotate(300deg);transform-origin:left bottom;"></path>-->
+    <!--<path d="M200 150 C200 150 250 163.4 300 150" style="transform: rotate(300deg);transform-origin:left top;"></path>-->
+</svg>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector("svg").addEventListener("click", function () {
+            if (this.classList.contains("open")) this.classList.remove("open");
+            else this.classList.add("open");
+        })
+    })
+</script>
+</html>

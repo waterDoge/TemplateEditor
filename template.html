@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>粽子</title>
+    <link rel="stylesheet" type="text/css" href="css/default.css">
+    <link rel="stylesheet" type="text/css" href="css/color-editor.css">
+</head>
+<body>
+<div class="poster">
+    <span data-bound-left="0" data-bound-right="1" class="poster-title slide-in movable">
+        仲夏端午
+    </span>
+    <span class="poster-sub-title slide-in movable">
+        Midsummer dragon-boat festival 'cast jinghu' situation
+    </span>
+    <span class="poster-desc slide-in movable">
+        沐兰汤，挂艾叶，赛龙舟，吃粽子。五月初五，又是一年端午到……
+    <br> 于端午佳节来临之际，为您奉上四味纳福粽，天南地北尽享口中
+    </span>
+    <a draggable="false" class="poster-link slide-in movable" href="javascript:void(0)">去官网逛逛</a>
+    <img draggable="false" class="poster-logo slide-in movable" src="image/doge.jpg">
+    <span class="poster-footer slide-in movable">
+        www.yoursite.com | yourname@company.com
+<br> ©Copyright 2015 your company Co. ltd,
+    </span>
+
+    <div class="poster-editor" data-target=".poster > .edit">
+        <div class="color-edit" data-target=".poster > .edit" data-target-attr="style.color">
+            <input title="颜色" type="color" value="#ff8800"/>
+            <div class="color-edit-alpha">
+                <div data-bound-left="-0.02" data-bound-right="1.02"
+                     class="color-edit-handle movable-x"></div>
+            </div>
+        </div>
+        <div class="color-edit" data-target=".poster > .edit" data-target-attr="style.backgroundColor">
+            <input title="颜色" type="color" value="#ff8800"/>
+            <div class="color-edit-alpha">
+                <div data-bound-left="-0.02" data-bound-right="1.02"
+                     class="color-edit-handle movable-x"></div>
+            </div>
+        </div>
+        <textarea class="poster-editor-content" placeholder="内容" rows="3"></textarea>
+    </div>
+</div>
+<button onclick="alert(getElementStyleDeclarations(['.poster .poster-title','.poster .poster-sub-title','.poster .poster-desc','.poster .poster-link']))">
+    A button
+</button>
+<script>
+    "use strict";
+    (function () {
+        var elements = document.querySelectorAll(".poster > .slide-in");
+        for (var i = 0; i < elements.length; i++) {
+            window.setTimeout(active, 300 + i * 150, elements[i]);
+        }
+        bindEditorEvents();
+
+        function bindEditorEvents() {
+            var targets = document.querySelectorAll(".poster > *:not(.poster-editor):not(img)");
+            for (var i = 0; i < targets.length; i++) {
+                targets[i].addEventListener("click", function (event) {
+                    removeAllEditClass();
+                    event.target.classList.add("edit");
+                    var computedStyle = getComputedStyle(event.target);
+                    var editor = document.querySelector(".poster-editor");
+                    editor.style.top = parseInt(computedStyle.top) - 10 + "px";
+                    editor.style.left = "33.3rem";//parseInt(computedStyle.left) + event.target.offsetWidth + 15 + "px";
+                    editor.classList.add("active");
+                    var color = getHexColorCode(getComputedStyle(this).color);
+                    var alpha = getAlpha(getComputedStyle(this).color);
+                    var bgColor = getHexColorCode(getComputedStyle(this).backgroundColor);
+                    var bgAlpha = getAlpha(getComputedStyle(this).backgroundColor);
+                    var editors = document.querySelectorAll(".color-edit");
+                    if (editors && editors.length >= 2) {
+                        editors[0].querySelector("input[type=color]").value = color;
+                        editors[0].querySelector(".color-edit-alpha").style.background = "transparent linear-gradient(90deg, transparent," + color + " 97%)";
+                        editors[0].querySelector(".color-edit-alpha > .color-edit-handle").style.left = (alpha-0.019)*97+"%";
+                        editors[1].querySelector("input[type=color]").value = bgColor;
+                        editors[1].querySelector(".color-edit-alpha").style.background = "transparent linear-gradient(90deg, transparent," + bgColor + " 97%)";
+                        editors[1].querySelector(".color-edit-alpha > .color-edit-handle").style.left = (bgAlpha-0.019)*97+"%";
+                    }
+                    document.querySelector(".poster-editor > textarea.poster-editor-content").value = event.target.innerHTML.replace(/^\s+|\s+$|\n+/g, '').replace(/(<br\/>)|(<br>)/g, "\n");
+                    event.stopPropagation();
+                });
+            }
+            document.querySelector(".poster > .poster-editor").addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
+            document.querySelector(".poster").addEventListener("click", removeAllEditClass, false);
+
+            document.querySelector(".poster-editor-content").addEventListener("input", function (event) {
+                var target = getEditorTarget();
+                if (target) {
+                    target.innerHTML = event.target.value.replace(/^\s+|\s+$/g, "").replace(/\n/g, "<br/>");
+                }
+            });
+        }
+
+        function removeAllEditClass() {
+            document.querySelector(".poster-editor").classList.remove("active");
+            var elements = document.querySelectorAll(".edit");
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].classList.remove("edit");
+            }
+        }
+
+        function getEditorTarget() {
+            var targetSelector = document.querySelector(".poster-editor");
+            if (!targetSelector || !targetSelector.dataset.target) {
+                return;
+            }
+            return document.querySelector(targetSelector.dataset.target)
+        }
+
+        function getHexColorCode(color) {
+            if ("transparent" === color) {
+                return "#ffffff";
+            }
+            return color.replace(/rgba?\(\s*(\d{1,3})\s*, \s*(\d{1,3})\s*, \s*(\d{1,3})[,.\d\s]*\)/, function (str, p0, p1, p2) {
+                return "#" + toHex(p0) + toHex(p1) + toHex(p2);
+                function toHex(p) {
+                    const chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+                    return chars[p >>> 4] + chars[p & 0xf];
+                }
+            });
+        }
+        function getAlpha(color) {
+            if ("transparent" === color) {
+                return 0;
+            }
+            if (/rgb\(/.test(color)) {
+                return 1;
+            }
+            return parseFloat(color.replace(/rgba\((?:\s*\d{1,3}\s*,){3}([\d.\s]+)\)/, "$1"));
+        }
+
+        function active(element) {
+            element.classList.remove('slide-in');
+        }
+    })();
+</script>
+<script src="js/drag.js"></script>
+<script src="js/style.js"></script>
+<script src="js/color-editor.js"></script>
+</body>
+</html>

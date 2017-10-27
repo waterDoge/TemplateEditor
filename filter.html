@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/default.css">
+    <script src="js/drag.js"></script>
+    <style>
+        body {
+            background: linear-gradient(30deg, transparent 390px, rgba(255, 248, 240, .6) 440px, transparent 490px),
+            linear-gradient(-45deg, transparent 270px, #fff 300px, transparent 330px),
+            linear-gradient(45deg, #3c1c3a 10px, #fdcbcb);
+
+            height: 100vh;
+            filter: contrast(10);
+            overflow-y: hidden;
+        }
+
+        div[id] {
+            position: absolute;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            filter: blur(3px);
+        }
+
+        #c0 {
+            width: 60px;
+            height: 1500px;
+            left: 15%;
+            background-color: #b58a96;
+            transform: translateY(-50%) rotate(60deg);
+            filter: blur(70px);
+        }
+
+        #c1 {
+            width: 20px;
+            height: 20px;
+            right: 15%;
+            background-color: #000;
+        }
+
+        .flame {
+            position: absolute;
+            left: 30%;
+            width: 0;
+            height: 0;
+            box-sizing: border-box;
+            border: 100px solid #000;
+            border-bottom: 100px solid transparent;
+            background-color: #b5932f;
+            transform: scaleX(.4);
+            border-radius: 7.5%;
+            filter: blur(20px);
+        }
+        .window{
+            width: 400px;
+            height: 200px;
+            background: rgba(0, 0, 0, .3);
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+<div id="c0" class="movable"></div>
+<div id="c1" class="movable"></div>
+<div class="flame">
+</div>
+<div class="window movable">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .cube{
+            position: relative;
+            perspective: 1000px;
+            perspective-origin: 250px 150px;
+            width: 100vw;
+            height: 100vh;
+        }
+        .cube .cube-surface {
+            position: absolute;
+            top: 100px;
+            left: 200px;
+            width: 100px;
+            height: 100px;
+            box-sizing: border-box;
+            padding:calc(50px - 1em);
+            transform-origin: 50px 50px -50px;
+            transition: transform .6s ease;
+            z-index: 0;
+        }
+        .cube .cube-surface.front{
+            background-color: rgba(0, 255, 168, 1);
+            z-index: 1;
+        }
+        .cube .cube-surface.top{
+            background-color: rgba(255, 0, 0, 1);
+            transform: rotateX(90deg);
+        }
+        .cube .cube-surface.bottom{
+            background-color: rgba(255, 166, 0, 1);
+            transform: rotateX(-90deg);
+        }
+        .cube .cube-surface.left{
+            background-color: rgba(168, 255, 0, 1);
+            transform: rotateY(-90deg);
+        }
+        .cube .cube-surface.right{
+            background-color: rgba(0, 255, 0, 1);
+            transform: rotateY(90deg);
+        }
+        .cube .cube-surface.back{
+            background-color: rgba(255, 255, 0, 1);
+            transform: rotateX(-180deg);
+            z-index: -1;
+        }
+    </style>
+    <script>
+        function spin1(){
+            var classes = document.querySelector(".front").classList;
+            classes.remove("front");
+            classes.add("left");
+        }
+        function spin2(){
+            var classes = document.querySelector(".left").classList;
+            classes.remove("left");
+            classes.add("back");
+        }
+        function spin3(){
+            var classes = document.querySelector(".back").classList;
+            classes.remove("back");
+            classes.add("right");
+        }
+        function spin4(){
+            var classes = document.querySelector(".right").classList;
+            classes.remove("right");
+            classes.add("front");
+        }
+        function spin() {
+            spin1();
+            spin2();
+            spin3();
+            spin4();
+        }
+    </script>
+</head>
+<body>
+    <div class="cube">
+        <div class="cube-surface back">后</div>
+        <div class="cube-surface front">前</div>
+        <div class="cube-surface top">上</div>
+        <div class="cube-surface bottom">下</div>
+        <div class="cube-surface left">左</div>
+        <div class="cube-surface right">右</div>
+    </div>
+</body>
+</html>

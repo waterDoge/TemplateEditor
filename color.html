@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/default.css" rel="stylesheet">
+    <link href="css/color-editor.css" rel="stylesheet">
+    <script src="js/color-editor.js"></script>
+</head>
+<body>
+<div class="color-edit" data-target="#result" data-target-attr="innerHTML,style.backgroundColor">
+    <input title="颜色" type="color" value="#ff8800"/>
+    <div class="color-edit-alpha">
+        <div data-bound-left="-0.02" data-bound-right="1.02"
+             class="color-edit-handle movable-x"></div>
+    </div>
+</div>
+<span id="result"></span>
+<div class="caret"></div>
+</body>
+<script src="js/drag.js"></script>
+</html>
